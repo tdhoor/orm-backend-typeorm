@@ -1,0 +1,27 @@
+version: '3'
+services:
+  app:
+    container_name: typeorm.app
+    build: .
+    ports: 
+      - "3000:3000"
+    restart: always 
+    env_file: .env
+    depends_on: 
+      - typeormdbpostgres
+
+  typeormdbpostgres:
+    container_name: typeorm.db.postgres
+    image: "postgres:14.5"
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "testdb"
+    volumes:
+      - typeorm-db-postgres:/var/lib/typeORM/postgres
+      - ./libs/core/src/db/postgres/testdb.sql:/docker-entrypoint-initdb.d/setup-postgres.sql
+volumes:
+  typeorm-db-postgres:
