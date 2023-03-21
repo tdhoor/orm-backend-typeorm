@@ -25,6 +25,8 @@ export class Order implements IOrder {
     })
     customer: Customer
 
-    @OneToMany(type => OrderItem, orderItem => orderItem.order)
+    @OneToMany(type => OrderItem, orderItem => orderItem.order, {
+        cascade: true
+    })
     orderItems: OrderItem[]
 }

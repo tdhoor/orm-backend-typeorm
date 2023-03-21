@@ -8,7 +8,7 @@ router.get("/:id", customerController.getOneById);
 router.get("/:id/orders", customerController.getCustomerOrders);
 router.get("/:id/products", customerController.getCustomerProducts);
 router.post("/", customerController.createOne);
-router.post("/customers", customerController.createMany);
+router.post("/bulk", customerController.createMany);
 router.put("/", customerController.updateOne);
 router.delete("/:id", customerController.deleteOneById);
 

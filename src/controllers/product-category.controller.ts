@@ -60,7 +60,7 @@ class ProductCategoryController implements ICrudController {
 
     deleteOneById(req: Request, res: Response, next: NextFunction) {
         execTest(async () => {
-            return await DB.manager.remove(ProductCategory, await DB.manager.findOne(ProductCategory, { where: { id: +req.params.id } }))
+            return await DB.manager.delete(ProductCategory, { id: +req.params.id });
         }, countEntities)
             .then((result) => {
                 res.status(200).json(result);

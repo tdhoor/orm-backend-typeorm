@@ -39,6 +39,9 @@ class OrderController implements ICrudController {
         execTest(() => {
             return DB.manager.find(Order, {
                 relations: ["orderItems"],
+                order: {
+                    createdAt: "DESC"
+                },
                 take: 100
             })
         }, countEntities)
@@ -64,7 +67,7 @@ class OrderController implements ICrudController {
 
     deleteOneById(req: Request, res: Response, next: NextFunction) {
         execTest(async () => {
-            return await DB.manager.remove(Order, await DB.manager.findOne(Order, { where: { id: +req.params.id } }))
+            return await DB.manager.delete(Order, +req.params.id);
         }, countEntities)
             .then((result) => {
                 res.status(200).json(result);

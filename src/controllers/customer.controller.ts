@@ -29,6 +29,7 @@ class CustomerController implements ICustomerController {
                 order: {
                     createdAt: "DESC"
                 },
+                relations: ["orderItems"],
                 take: 100
             })
         }, countEntities)
@@ -54,7 +55,8 @@ class CustomerController implements ICustomerController {
                 },
                 order: {
                     name: "ASC"
-                }
+                },
+                take: 100
             })
         }, countEntities)
             .then((result) => {
@@ -122,8 +124,7 @@ class CustomerController implements ICustomerController {
 
     deleteOneById(req: Request, res: Response, next: NextFunction) {
         execTest(async () => {
-            const customer = await DB.manager.findOne(Customer, { where: { id: +req.params.id } });
-            return DB.manager.remove(Customer, customer);
+            return DB.manager.delete(Customer, +req.params.id);
         }, countEntities)
             .then((result) => {
                 res.status(200).json(result);

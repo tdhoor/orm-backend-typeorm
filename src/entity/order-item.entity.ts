@@ -18,14 +18,12 @@ export class OrderItem implements IOrderItem {
     productId: number
 
     @ManyToOne(type => Order, order => order.orderItems, {
-        cascade: true,
         onDelete: "CASCADE"
     })
     order: Order
 
     @ManyToOne(type => Product, product => product.orderItems, {
-        cascade: true,
-        onDelete: "CASCADE"
+        onDelete: "CASCADE",
     })
     product: Product
 }

@@ -60,7 +60,7 @@ class AddressController implements ICrudController {
 
     deleteOneById(req: Request, res: Response, next: NextFunction) {
         execTest(async () => {
-            return await DB.manager.remove(Address, await DB.manager.findOne(Address, { where: { id: +req.params.id } }))
+            return await DB.manager.delete(Address, +req.params.id);
         }, countEntities)
             .then((result) => {
                 res.status(200).json(result);

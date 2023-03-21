@@ -60,9 +60,7 @@ class OrderItemController implements ICrudController {
 
     deleteOneById(req: Request, res: Response, next: NextFunction) {
         execTest(async () => {
-            console.log(OrderItemController.name + "." + "deleteOneById", req.params.id);
-
-            return await DB.manager.remove(OrderItem, await DB.manager.findOne(OrderItem, { where: { id: +req.params.id } }))
+            return await DB.manager.delete(OrderItem, { id: +req.params.id });
         }, countEntities)
             .then((result) => {
                 res.status(200).json(result);
