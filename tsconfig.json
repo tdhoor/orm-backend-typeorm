@@ -2,7 +2,7 @@
    "compilerOptions": {
       "outDir": "./build",
       "baseUrl": ".",
-      "target": "es6",
+      "target": "ES2021",
       "module": "commonjs",
       "moduleResolution": "node",
       "esModuleInterop": true,
