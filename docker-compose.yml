@@ -2,6 +2,7 @@ version: '3'
 services:
   app:
     container_name: typeorm.app
+    image: "typeorm_postgres"
     build: .
     ports: 
       - "3000:3000"
@@ -9,6 +10,8 @@ services:
     env_file: .env
     depends_on: 
       - typeormdbpostgres
+    volumes:
+      - typeorm-app-postgres:/var/lib/typeorm/app/postgres
 
   typeormdbpostgres:
     container_name: typeorm.db.postgres
@@ -23,7 +26,9 @@ services:
     logging:
       driver: none
     volumes:
-      - typeorm-db-postgres:/var/lib/typeORM/postgres
+      - typeorm-db-postgres:/var/lib/typeorm/db/postgres
       - ./libs/core/src/db/postgres/testdb.sql:/docker-entrypoint-initdb.d/setup-postgres.sql
+      
 volumes:
   typeorm-db-postgres:
+  typeorm-app-postgres:
