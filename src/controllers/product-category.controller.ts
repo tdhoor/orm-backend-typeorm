@@ -47,8 +47,14 @@ class ProductCategoryController implements ICrudController {
     }
 
     updateOne(req: Request, res: Response, next: NextFunction) {
-        execTest(() => {
-            return DB.manager.save(ProductCategory, req.body);
+        execTest(async () => {
+            const id = +req.body.id
+            await DB.manager.update(ProductCategory, id, req.body);
+            return await DB.manager.findOne(ProductCategory, {
+                where: {
+                    id
+                }
+            })
         }, countEntities)
             .then((result) => {
                 res.status(200).json(result);

@@ -99,7 +99,8 @@ class CustomerController implements ICustomerController {
     getAll(req: Request, res: Response, next: NextFunction) {
         execTest(() => {
             return DB.manager.find(Customer, {
-                take: 100
+                take: 100,
+                relations: ["address"]
             })
         }, countEntities)
             .then((result) => {
@@ -111,8 +112,14 @@ class CustomerController implements ICustomerController {
     }
 
     updateOne(req: Request, res: Response, next: NextFunction) {
-        execTest(() => {
-            return DB.manager.save(Customer, req.body);
+        execTest(async () => {
+            const id = +req.body.id
+            await DB.manager.update(Customer, id, req.body);
+            return await DB.manager.findOne(Customer, {
+                where: {
+                    id
+                }
+            })
         }, countEntities)
             .then((result) => {
                 res.status(200).json(result);

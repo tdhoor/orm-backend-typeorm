@@ -52,8 +52,14 @@ class ProductController implements IProductController {
     }
 
     updateOne(req: Request, res: Response, next: NextFunction) {
-        execTest(() => {
-            return DB.manager.save(Product, req.body);
+        execTest(async () => {
+            const id = +req.body.id
+            await DB.manager.update(Product, id, req.body);
+            return await DB.manager.findOne(Product, {
+                where: {
+                    id
+                }
+            })
         }, countEntities)
             .then((result) => {
                 res.status(200).json(result);
