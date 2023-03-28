@@ -20,6 +20,8 @@ services:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
       POSTGRES_DB: "testdb"
+    logging:
+      driver: none
     volumes:
       - typeorm-db-postgres:/var/lib/typeORM/postgres
       - ./libs/core/src/db/postgres/testdb.sql:/docker-entrypoint-initdb.d/setup-postgres.sql

@@ -22,6 +22,9 @@ export const DB = new DataSource({
     entities: [
         Address, Customer, Order, OrderItem, Product, ProductCategory
     ],
+    pool: {
+        max: 5
+    },
     subscribers: [],
     dropSchema: true
 });
