@@ -124,7 +124,9 @@ class CustomerController implements ICustomerController {
 
     deleteOneById(req: Request, res: Response, next: NextFunction) {
         execTest(async () => {
-            return DB.manager.delete(Customer, +req.params.id);
+            const id = +req.params.id
+            await DB.manager.delete(Customer, id);
+            return id;
         }, countEntities)
             .then((result) => {
                 res.status(200).json(result);

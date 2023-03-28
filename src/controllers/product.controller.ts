@@ -65,7 +65,9 @@ class ProductController implements IProductController {
 
     deleteOneById(req: Request, res: Response, next: NextFunction) {
         execTest(async () => {
-            return await DB.manager.delete(Product, { id: +req.params.id });
+            const id = +req.params.id
+            await DB.manager.delete(Product, id);
+            return id;
         }, countEntities)
             .then((result) => {
                 res.status(200).json(result);
