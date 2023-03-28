@@ -17,7 +17,7 @@ export class Order implements IOrder {
     @UpdateDateColumn()
     updatedAt: Date
 
-    @Column({ nullable: true })
+    @Column({ nullable: true, default: null })
     customerId: number
 
     @ManyToOne(type => Customer, customer => customer.orders, {

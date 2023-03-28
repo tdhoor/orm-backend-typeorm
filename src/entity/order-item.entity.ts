@@ -14,7 +14,7 @@ export class OrderItem implements IOrderItem {
     @Column({ nullable: true })
     orderId: number
 
-    @Column({ nullable: true })
+    @Column({ nullable: true, default: null })
     productId: number
 
     @ManyToOne(type => Order, order => order.orderItems, {

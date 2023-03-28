@@ -23,7 +23,7 @@ export class Product implements IProduct {
     @UpdateDateColumn()
     updatedAt: Date
 
-    @Column({ nullable: true })
+    @Column({ nullable: true, default: null })
     productCategoryId: number
 
     @ManyToOne(type => ProductCategory, productCategory => productCategory.products, {
