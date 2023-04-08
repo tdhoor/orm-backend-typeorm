@@ -9,7 +9,7 @@ class AddressController implements ICrudController {
     createOne(req: Request, res: Response, next: NextFunction) {
         execTest(() => {
             return DB.manager.save(Address, req.body);
-        }, countEntities)
+        })
             .then((result) => {
                 res.status(200).json(result);
             })
@@ -26,7 +26,7 @@ class AddressController implements ICrudController {
                     id: +req.params.id
                 }
             })
-        }, countEntities)
+        })
             .then((result) => {
                 res.status(200).json(result);
             })
@@ -39,7 +39,7 @@ class AddressController implements ICrudController {
     getAll(req: Request, res: Response, next: NextFunction) {
         execTest(() => {
             return DB.manager.find(Address, { take: 100 })
-        }, countEntities)
+        })
             .then((result) => {
                 res.status(200).json(result);
             })
@@ -58,7 +58,7 @@ class AddressController implements ICrudController {
                     id
                 }
             })
-        }, countEntities)
+        })
             .then((result) => {
                 res.status(200).json(result);
             })
@@ -73,7 +73,7 @@ class AddressController implements ICrudController {
             const id = +req.params.id
             await DB.manager.delete(Address, id);
             return id;
-        }, countEntities)
+        })
             .then((result) => {
                 res.status(200).json(result);
             })

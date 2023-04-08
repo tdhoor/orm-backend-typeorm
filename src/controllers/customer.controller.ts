@@ -5,14 +5,13 @@ import { Customer } from "../entity/customer.entity";
 import { Order } from "../entity/order.entity";
 import { Product } from "../entity/product.entity";
 import { DB } from "../db"
-import { countEntities } from "../functions/count-entities.function";
 
 class CustomerController implements ICustomerController {
     createMany(req: Request, res: Response, next: NextFunction) {
         execTest(async () => {
             const customers = await DB.manager.save(Customer, req.body, { chunk: 10000 });
             return { count: customers.length };
-        }, countEntities)
+        })
             .then((result) => {
                 res.status(200).json(result);
             })
@@ -34,7 +33,7 @@ class CustomerController implements ICustomerController {
                 relations: ["orderItems"],
                 take: 100
             })
-        }, countEntities)
+        })
             .then((result) => {
                 res.status(200).json(result);
             })
@@ -61,7 +60,7 @@ class CustomerController implements ICustomerController {
                 },
                 take: 100
             })
-        }, countEntities)
+        })
             .then((result) => {
                 res.status(200).json(result);
             })
@@ -74,7 +73,7 @@ class CustomerController implements ICustomerController {
     createOne(req: Request, res: Response, next: NextFunction) {
         execTest(() => {
             return DB.manager.save(Customer, req.body);
-        }, countEntities)
+        })
             .then((result) => {
                 res.status(200).json(result);
             })
@@ -92,7 +91,7 @@ class CustomerController implements ICustomerController {
                 },
                 relations: ["address"]
             })
-        }, countEntities)
+        })
             .then((result) => {
                 res.status(200).json(result);
             })
@@ -108,7 +107,7 @@ class CustomerController implements ICustomerController {
                 take: 100,
                 relations: ["address"]
             })
-        }, countEntities)
+        })
             .then((result) => {
                 res.status(200).json(result);
             })
@@ -127,7 +126,7 @@ class CustomerController implements ICustomerController {
                     id
                 }
             })
-        }, countEntities)
+        })
             .then((result) => {
                 res.status(200).json(result);
             })
@@ -142,7 +141,7 @@ class CustomerController implements ICustomerController {
             const id = +req.params.id
             await DB.manager.delete(Customer, id);
             return id;
-        }, countEntities)
+        })
             .then((result) => {
                 res.status(200).json(result);
             })
