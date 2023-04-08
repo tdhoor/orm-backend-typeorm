@@ -2,33 +2,36 @@ version: '3'
 services:
   app:
     container_name: typeorm.app
-    image: "typeorm_postgres"
+    image: "typeorm_mssql"
     build: .
     ports: 
       - "3000:3000"
     restart: always 
     env_file: .env
     depends_on: 
-      - typeormdbpostgres
+      - typeormdbmssql
     volumes:
-      - typeorm-app-postgres:/var/lib/typeorm/app/postgres
+      - typeorm-app-mssql:/var/lib/typeorm/app/mssql
 
-  typeormdbpostgres:
-    container_name: typeorm.db.postgres
-    image: "postgres:14.5"
+  typeormdbmssql:
+    container_name: typeorm.db.mssql
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
+    command: /bin/bash ./entrypoint.sh
     restart: always
     ports:
-      - "5432:5432"
+      - "1433:1433"
     environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "postgres"
-      POSTGRES_DB: "testdb"
+      SA_PASSWORD: "a1?%fkARF!24x"
+      MSSQL_PID: Express
+      ACCEPT_EULA: "Y"
     logging:
       driver: none
     volumes:
-      - typeorm-db-postgres:/var/lib/typeorm/db/postgres
-      - ./libs/core/src/db/postgres/testdb.sql:/docker-entrypoint-initdb.d/setup-postgres.sql
+      - typeorm-db-mssql:/var/lib/typeorm/db/mssql
+      - ./libs/core/src/db/mssql/docker-entrypoint.sh:/entrypoint.sh
+      - ./libs/core/src/db/mssql/docker-db-init.sh:/db-init.sh
+      - ./libs/core/src/db/mssql/testdb.sql:/db-init.sql
       
 volumes:
-  typeorm-db-postgres:
-  typeorm-app-postgres:
+  typeorm-db-mssql:
+  typeorm-app-mssql:

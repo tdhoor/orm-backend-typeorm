@@ -26,5 +26,8 @@ export const DB = new DataSource({
         max: 5
     },
     subscribers: [],
-    dropSchema: true
+    dropSchema: true,
+    extra: {
+        trustServerCertificate: true
+    }
 });
