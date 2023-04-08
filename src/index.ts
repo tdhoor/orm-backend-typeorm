@@ -30,4 +30,4 @@ setTimeout(() => {
             console.log("Server listen to port: " + process.env.APP_PORT);
         });
     });
-}, 3000);
+}, 30000);
