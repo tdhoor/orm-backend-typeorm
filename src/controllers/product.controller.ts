@@ -14,7 +14,8 @@ class ProductController implements IProductController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).send(error);
+                res.status(500).json({ msg: "Error creating product" })
+                console.log(error);
             })
     }
 
@@ -30,7 +31,8 @@ class ProductController implements IProductController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).send(error);
+                res.status(500).json({ msg: "Error getting product" })
+                console.log(error);
             })
     }
 
@@ -47,7 +49,8 @@ class ProductController implements IProductController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).send(error);
+                res.status(500).json({ msg: "Error creating products" })
+                console.log(error);
             })
     }
 
@@ -65,7 +68,8 @@ class ProductController implements IProductController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).send(error);
+                res.status(500).json({ msg: "Error updating product" })
+                console.log(error);
             })
     }
 
@@ -79,7 +83,8 @@ class ProductController implements IProductController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).send(error);
+                res.status(500).json({ msg: "Error deleting product" })
+                console.log(error);
             })
     }
 
@@ -101,7 +106,8 @@ class ProductController implements IProductController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).send(error);
+                res.status(500).json({ msg: "Error getting products from category" })
+                console.log(error);
             })
     }
 }

@@ -17,7 +17,8 @@ class CustomerController implements ICustomerController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).send(error);
+                res.status(500).json({ msg: "Error creating customers" })
+                console.log(error);
             })
     }
 
@@ -38,7 +39,8 @@ class CustomerController implements ICustomerController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).send(error);
+                res.status(500).json({ msg: "Error getting customer orders" })
+                console.log(error);
             })
     }
 
@@ -64,7 +66,8 @@ class CustomerController implements ICustomerController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).send(error);
+                res.status(500).json({ msg: "Error getting customer products" })
+                console.log(error);
             })
     }
 
@@ -76,7 +79,8 @@ class CustomerController implements ICustomerController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).send(error);
+                res.status(500).json({ msg: "Error creating customer" })
+                console.log(error);
             })
     }
 
@@ -93,7 +97,8 @@ class CustomerController implements ICustomerController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).send(error);
+                res.status(500).json({ msg: "Error getting customer" })
+                console.log(error);
             })
     }
 
@@ -108,7 +113,8 @@ class CustomerController implements ICustomerController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).send(error);
+                res.status(500).json({ msg: "Error getting customers" })
+                console.log(error);
             })
     }
 
@@ -126,7 +132,8 @@ class CustomerController implements ICustomerController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).send(error);
+                res.status(500).json({ msg: "Error updating customer" })
+                console.log(error);
             })
     }
 
@@ -140,7 +147,8 @@ class CustomerController implements ICustomerController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).json({ massage: "Error deleting customer!", data: { id: req.params.id } });
+                res.status(500).json({ msg: "Error deleting customer" })
+                console.log(error);
             })
     }
 

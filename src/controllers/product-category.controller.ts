@@ -14,7 +14,8 @@ class ProductCategoryController implements ICrudController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).send(error);
+                res.status(500).json({ msg: "Error creating product category" })
+                console.log(error);
             })
     }
 
@@ -30,7 +31,8 @@ class ProductCategoryController implements ICrudController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).send(error);
+                res.status(500).json({ msg: "Error getting product category" })
+                console.log(error);
             })
     }
 
@@ -42,7 +44,8 @@ class ProductCategoryController implements ICrudController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).send(error);
+                res.status(500).json({ msg: "Error getting product categorys" })
+                console.log(error);
             })
     }
 
@@ -60,7 +63,8 @@ class ProductCategoryController implements ICrudController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).send(error);
+                res.status(500).json({ msg: "Error updating product category" })
+                console.log(error);
             })
     }
 
@@ -74,7 +78,8 @@ class ProductCategoryController implements ICrudController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).send(error);
+                res.status(500).json({ msg: "Error deleting product category" })
+                console.log(error);
             })
     }
 }
