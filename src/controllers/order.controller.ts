@@ -3,13 +3,12 @@ import { ICrudController } from "@core/models/controllers/crud-controller.mock";
 import { execTest } from "@core/functions/exec-test.function";
 import { Order } from "../entity/order.entity";
 import { DB } from "../db"
-import { countEntities } from "../functions/count-entities.function";
 
 class OrderController implements ICrudController {
     createOne(req: Request, res: Response, next: NextFunction) {
         execTest(() => {
             return DB.manager.save(Order, req.body);
-        }, countEntities)
+        })
             .then((result) => {
                 res.status(200).json(result);
             })
@@ -26,7 +25,7 @@ class OrderController implements ICrudController {
                 },
                 relations: ["orderItems"]
             })
-        }, countEntities)
+        })
             .then((result) => {
                 res.status(200).json(result);
             })
@@ -44,7 +43,7 @@ class OrderController implements ICrudController {
                 },
                 take: 100
             })
-        }, countEntities)
+        })
             .then((result) => {
                 res.status(200).json(result);
             })
@@ -62,7 +61,7 @@ class OrderController implements ICrudController {
                     id
                 }
             })
-        }, countEntities)
+        })
             .then((result) => {
                 res.status(200).json(result);
             })
@@ -76,7 +75,7 @@ class OrderController implements ICrudController {
             const id = +req.params.id
             await DB.manager.delete(Order, id);
             return id;
-        }, countEntities)
+        })
             .then((result) => {
                 res.status(200).json(result);
             })
