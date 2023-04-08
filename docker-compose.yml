@@ -2,33 +2,33 @@ version: '3'
 services:
   app:
     container_name: typeorm.app
-    image: "typeorm_postgres"
+    image: "typeorm_mysql"
     build: .
     ports: 
       - "3000:3000"
     restart: always 
     env_file: .env
     depends_on: 
-      - typeormdbpostgres
+      - typeormdbmysql
     volumes:
-      - typeorm-app-postgres:/var/lib/typeorm/app/postgres
+      - typeorm-app-mysql:/var/lib/typeorm/app/mysql
 
-  typeormdbpostgres:
-    container_name: typeorm.db.postgres
-    image: "postgres:14.5"
+  typeormdbmysql:
+    container_name: typeorm.db.mysql
+    image: "mysql:8.0.32"
     restart: always
     ports:
-      - "5432:5432"
+      - "3306:3306"
+    command: 
+      - --default-authentication-plugin=mysql_native_password
     environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "postgres"
-      POSTGRES_DB: "testdb"
+      MYSQL_DATABASE: "testdb"
+      MYSQL_ROOT_PASSWORD: "root"
     logging:
       driver: none
     volumes:
-      - typeorm-db-postgres:/var/lib/typeorm/db/postgres
-      - ./libs/core/src/db/postgres/testdb.sql:/docker-entrypoint-initdb.d/setup-postgres.sql
+      - typeorm-db-mysql:/var/lib/typeorm/db/mysql
       
 volumes:
-  typeorm-db-postgres:
-  typeorm-app-postgres:
+  typeorm-db-mysql:
+  typeorm-app-mysql:
