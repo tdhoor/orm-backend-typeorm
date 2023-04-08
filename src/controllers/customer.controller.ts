@@ -120,8 +120,8 @@ class CustomerController implements ICustomerController {
 
     updateOne(req: Request, res: Response, next: NextFunction) {
         execTest(async () => {
-            const id = +req.body.id
-            await DB.manager.update(Customer, id, req.body);
+            const { id, ...customer } = req.body;
+            await DB.manager.update(Customer, id, customer);
             return await DB.manager.findOne(Customer, {
                 where: {
                     id

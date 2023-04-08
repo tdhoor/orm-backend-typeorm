@@ -51,8 +51,8 @@ class OrderItemController implements ICrudController {
 
     updateOne(req: Request, res: Response, next: NextFunction) {
         execTest(async () => {
-            const id = +req.body.id
-            await DB.manager.update(OrderItem, id, req.body);
+            const { id, ...orderItem } = req.body;
+            await DB.manager.update(OrderItem, id, orderItem);
             return await DB.manager.findOne(OrderItem, {
                 where: {
                     id

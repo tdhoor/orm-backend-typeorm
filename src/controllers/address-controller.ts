@@ -51,8 +51,8 @@ class AddressController implements ICrudController {
 
     updateOne(req: Request, res: Response, next: NextFunction) {
         execTest(async () => {
-            const id = +req.body.id
-            await DB.manager.update(Address, id, req.body);
+            const { id, ...address } = req.body;
+            await DB.manager.update(Address, id, address);
             return await DB.manager.findOne(Address, {
                 where: {
                     id
