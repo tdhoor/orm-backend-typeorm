@@ -3,13 +3,12 @@ import { execTest } from "@core/functions/exec-test.function";
 import { Product } from "../entity/product.entity";
 import { DB } from "../db"
 import { IProductController } from "@core/models/controllers/product-controller.model";
-import { countEntities } from "../functions/count-entities.function";
 
 class ProductController implements IProductController {
     createOne(req: Request, res: Response, next: NextFunction) {
         execTest(() => {
             return DB.manager.save(Product, req.body);
-        }, countEntities)
+        })
             .then((result) => {
                 res.status(200).json(result);
             })
@@ -26,7 +25,7 @@ class ProductController implements IProductController {
                     id: +req.params.id
                 }
             })
-        }, countEntities)
+        })
             .then((result) => {
                 res.status(200).json(result);
             })
@@ -44,7 +43,7 @@ class ProductController implements IProductController {
                 },
                 take: 100
             })
-        }, countEntities)
+        })
             .then((result) => {
                 res.status(200).json(result);
             })
@@ -63,7 +62,7 @@ class ProductController implements IProductController {
                     id
                 }
             })
-        }, countEntities)
+        })
             .then((result) => {
                 res.status(200).json(result);
             })
@@ -78,7 +77,7 @@ class ProductController implements IProductController {
             const id = +req.params.id
             await DB.manager.delete(Product, id);
             return id;
-        }, countEntities)
+        })
             .then((result) => {
                 res.status(200).json(result);
             })
@@ -101,7 +100,7 @@ class ProductController implements IProductController {
                 },
                 take: 100
             })
-        }, countEntities)
+        })
             .then((result) => {
                 res.status(200).json(result);
             })
