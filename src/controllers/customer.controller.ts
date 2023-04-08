@@ -5,11 +5,12 @@ import { Customer } from "../entity/customer.entity";
 import { Order } from "../entity/order.entity";
 import { Product } from "../entity/product.entity";
 import { DB } from "../db"
+import { getMaxBatchSize } from "@core/functions/get-max-batch-size.function";
 
 class CustomerController implements ICustomerController {
     createMany(req: Request, res: Response, next: NextFunction) {
         execTest(async () => {
-            const customers = await DB.manager.save(Customer, req.body, { chunk: 10000 });
+            const customers = await DB.manager.save(Customer, req.body, { chunk: getMaxBatchSize(req.body) });
             return { count: customers.length };
         })
             .then((result) => {
