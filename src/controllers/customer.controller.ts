@@ -9,8 +9,9 @@ import { countEntities } from "../functions/count-entities.function";
 
 class CustomerController implements ICustomerController {
     createMany(req: Request, res: Response, next: NextFunction) {
-        execTest(() => {
-            return DB.manager.save(Customer, req.body, { chunk: 10000 });
+        execTest(async () => {
+            const customers = await DB.manager.save(Customer, req.body, { chunk: 10000 });
+            return { count: customers.length };
         }, countEntities)
             .then((result) => {
                 res.status(200).json(result);
