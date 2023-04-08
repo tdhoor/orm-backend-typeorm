@@ -14,7 +14,8 @@ class OrderController implements ICrudController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).send(error);
+                res.status(500).json({ msg: "Error creating order" })
+                console.log(error);
             })
     }
 
@@ -31,7 +32,8 @@ class OrderController implements ICrudController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).send(error);
+                res.status(500).json({ msg: "Error getting order" })
+                console.log(error);
             })
     }
 
@@ -49,7 +51,8 @@ class OrderController implements ICrudController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).send(error);
+                res.status(500).json({ msg: "Error getting orders" })
+                console.log(error);
             })
     }
 
@@ -67,7 +70,8 @@ class OrderController implements ICrudController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).send(error);
+                res.status(500).json({ msg: "Error updating order" })
+                console.log(error);
             })
     }
 
@@ -81,7 +85,8 @@ class OrderController implements ICrudController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).send(error);
+                res.status(500).json({ msg: "Error deleting order" })
+                console.log(error);
             })
     }
 }

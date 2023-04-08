@@ -14,7 +14,8 @@ class AddressController implements ICrudController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).send(error);
+                res.status(500).json({ msg: "Error creating address" })
+                console.log(error);
             })
     }
 
@@ -30,7 +31,8 @@ class AddressController implements ICrudController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).send(error);
+                res.status(500).json({ msg: "Error getting address" })
+                console.log(error);
             })
     }
 
@@ -42,7 +44,8 @@ class AddressController implements ICrudController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).send(error);
+                res.status(500).json({ msg: "Error creating addresses" })
+                console.log(error);
             })
     }
 
@@ -60,7 +63,8 @@ class AddressController implements ICrudController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).send(error);
+                res.status(500).json({ msg: "Error updating address" })
+                console.log(error);
             })
     }
 
@@ -74,7 +78,8 @@ class AddressController implements ICrudController {
                 res.status(200).json(result);
             })
             .catch((error) => {
-                res.status(500).send(error);
+                res.status(500).json({ msg: "Error deleting address" })
+                console.log(error);
             })
     }
 }
