@@ -11,12 +11,12 @@ import { ProductCategory } from "./entity/product-category.entity";
 dotenv.config();
 
 export const DB = new DataSource({
-    type: process.env.POSTGRES_DB_TYPE as any,
-    host: process.env.POSTGRES_DB_HOST,
-    port: +process.env.POSTGRES_DB_PORT,
-    username: process.env.POSTGRES_DB_USER,
-    password: process.env.POSTGRES_DB_PASSWORD,
-    database: process.env.POSTGRES_DB_NAME,
+    type: process.env.DB_TYPE as any,
+    host: process.env.DB_HOST,
+    port: +process.env.DB_PORT,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
     synchronize: true,
     logging: false,
     entities: [
