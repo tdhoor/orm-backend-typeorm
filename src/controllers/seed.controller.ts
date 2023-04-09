@@ -13,40 +13,33 @@ import { calcProductCategoryAmount } from "@core/functions/calc-product-category
 async function seedDb(req, res, next) {
     try {
         const amount: number = +req.params.amount;
-        let p1 = performance.now();
-
         await deleteAllEntities();
 
         let customers = createMock.customers(amount);
         let addresses = createMock.addresses(amount, customers);
-
-        await insert(Customer, customers);
-        customers = null;
-
-        await insert(Address, addresses);
-        addresses = null;
-
+        while (customers.length) {
+            await insert(Customer, customers.splice(0, 10000));
+        }
+        while (addresses.length) {
+            await insert(Address, addresses.splice(0, 10000));
+        }
         let categories = createMock.productCategories(calcProductCategoryAmount(amount));
         let products = createMock.products(amount, categories);
         let customerIds = Array.from({ length: amount }).map((_, i) => i + 1);
         let { orders, orderItems } = createMock.orders(amount, customerIds, products, { addOrderIdToOrderItem: true, seperateOrderItems: true });
-
-        await insert(ProductCategory, categories);
-        categories = null;
-
-        await insert(Product, products);
-        products = null;
-
-        await insert(Order, orders);
-        orders = null;
-        customerIds = null;
-
-        await insert(OrderItem, orderItems);
-        orderItems = null;
-
-        console.log(performance.now() - p1);
+        while (categories.length) {
+            await insert(ProductCategory, categories.splice(0, 10000));
+        }
+        while (products.length) {
+            await insert(Product, products.splice(0, 10000));
+        }
+        while (orders.length) {
+            await insert(Order, orders.splice(0, 10000));
+        }
+        while (orderItems.length) {
+            await insert(OrderItem, orderItems.splice(0, 10000));
+        }
         const count = await countEntities();
-
         res.status(200).json({ message: "DB seeded", count });
     } catch (error) {
         console.error(error);
