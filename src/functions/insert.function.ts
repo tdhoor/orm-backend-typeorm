@@ -1,3 +1,4 @@
+import { bulkInsertMysql } from "@core/functions/bulk-insert-mysql.function";
 import { DB } from "../db";
 import mysql from "mysql2";
 
