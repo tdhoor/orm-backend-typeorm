@@ -9,8 +9,12 @@ import { DB } from "../db"
 class CustomerController implements ICustomerController {
     createMany(req: Request, res: Response, next: NextFunction) {
         execTest(async () => {
-            const customers = await DB.manager.save(Customer, req.body, { chunk: 10000 });
-            return { count: customers.length };
+            const insertResult = await DB.manager.createQueryBuilder()
+                .insert()
+                .into(Customer)
+                .values(req.body)
+                .execute()
+            return { count: insertResult.generatedMaps.length };
         })
             .then((result) => {
                 res.status(200).json(result);
