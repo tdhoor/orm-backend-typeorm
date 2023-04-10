@@ -17,30 +17,20 @@ async function seedDb(req, res, next) {
 
         let customers = createMock.customers(amount);
         let addresses = createMock.addresses(amount, customers);
-        while (customers.length) {
-            await insert(Customer, customers.splice(0, 10000));
-        }
-        while (addresses.length) {
-            await insert(Address, addresses.splice(0, 10000));
-        }
+
+        await insert(Customer, customers);
+        await insert(Address, addresses);
 
         let categories = createMock.productCategories(calcProductCategoryAmount(amount));
         let products = createMock.products(amount, categories);
         let customerIds = Array.from({ length: amount }).map((_, i) => i + 1);
         let { orders, orderItems } = createMock.orders(amount, customerIds, products, { addOrderIdToOrderItem: true, seperateOrderItems: true });
 
-        while (categories.length) {
-            await insert(ProductCategory, categories.splice(0, 10000));
-        }
-        while (products.length) {
-            await insert(Product, products.splice(0, 10000));
-        }
-        while (orders.length) {
-            await insert(Order, orders.splice(0, 10000));
-        }
-        while (orderItems.length) {
-            await insert(OrderItem, orderItems.splice(0, 10000));
-        }
+        await insert(ProductCategory, categories);
+        await insert(Product, products);
+        await insert(Order, orders);
+        await insert(OrderItem, orderItems);
+
         const count = await countEntities();
         res.status(200).json({ message: "DB seeded", count });
     } catch (error) {
