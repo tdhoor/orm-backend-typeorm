@@ -10,8 +10,17 @@ import { getMaxBatchSize } from "@core/functions/get-max-batch-size.function";
 class CustomerController implements ICustomerController {
     createMany(req: Request, res: Response, next: NextFunction) {
         execTest(async () => {
-            const customers = await DB.manager.save(Customer, req.body, { chunk: getMaxBatchSize(req.body) });
-            return { count: customers.length };
+            const maxBatchSize = getMaxBatchSize(req.body);
+            let count = 0;
+            while (req.body.length > 0) {
+                const insertResult = await DB.manager.createQueryBuilder()
+                    .insert()
+                    .into(Customer)
+                    .values(req.body.splice(0, maxBatchSize))
+                    .execute();
+                count += insertResult.generatedMaps.length;
+            }
+            return { count };
         })
             .then((result) => {
                 res.status(200).json(result);
