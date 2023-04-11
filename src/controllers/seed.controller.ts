@@ -7,7 +7,7 @@ import { Address } from "../entity/address.entity";
 import { OrderItem } from "../entity/order-item.entity";
 import { deleteAllEntities } from "../functions/delete-all-entities.function";
 import { insert } from "../functions/insert.function";
-import { countEntities } from "src/functions/count-entities.function";
+import { countEntities } from "../functions/count-entities.function";
 import { calcProductCategoryAmount } from "@core/functions/calc-product-category-amount.function";
 
 async function seedDb(req, res, next) {

@@ -1,4 +1,4 @@
-import { DB } from "src/db";
+import { DB } from "../db";
 
 export async function deleteAllEntities() {
     const entities = DB.entityMetadatas;
