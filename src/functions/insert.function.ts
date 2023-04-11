@@ -1,12 +1,7 @@
-import { getMaxBatchSize } from "@core/functions/get-max-batch-size.function";
 import { DB } from "../db";
+import { bukdInsertMssql } from "@core/functions/bulk-insert-mssql.function";
 
 export async function insert<T>(type: (new () => T), data: any[]) {
-    while (data.length > 0) {
-        await DB.manager.createQueryBuilder()
-            .insert()
-            .into(type)
-            .values(data.splice(0, getMaxBatchSize(data)))
-            .execute();
-    }
+    const table = DB.manager.connection.getMetadata(type).tableName;
+    await bukdInsertMssql(table, data);
 }
