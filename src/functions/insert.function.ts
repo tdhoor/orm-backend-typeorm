@@ -2,7 +2,7 @@ import { bulkInsertMysql } from "@core/functions/bulk-insert-mysql.function";
 import { DB } from "../db";
 import mysql from "mysql2";
 
-export function insert<T>(type: (new () => T), data: any[]) {
+export async function insert<T>(type: (new () => T), data: any[]) {
     const pool = mysql.createPool({
         host: process.env.DB_HOST,
         user: process.env.DB_USER,
@@ -10,5 +10,6 @@ export function insert<T>(type: (new () => T), data: any[]) {
         database: process.env.DB_NAME
     });
     const tableName = DB.manager.getRepository(type).metadata.tableName;
-    return bulkInsertMysql(pool, tableName, data);
+    await bulkInsertMysql(pool, tableName, data);
+    pool.end();
 }
